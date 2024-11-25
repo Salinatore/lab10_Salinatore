@@ -70,9 +70,6 @@ public final class LambdaUtilities {
      *         based on the mapping done by the function
      */
     public static <R, T> Map<R, Set<T>> group(final List<T> list, final Function<T, R> op) {
-        /*
-         * Suggestion: consider Map.merge
-         */
         final Map<R, Set<T>> mapToReturn = new HashMap<>();
         list.forEach(t -> {
             mapToReturn.merge(op.apply(t) , Set.of(t) ,(oldSet, newSet) -> {
@@ -97,11 +94,6 @@ public final class LambdaUtilities {
      *         by the supplier
      */
     public static <K, V> Map<K, V> fill(final Map<K, Optional<V>> map, final Supplier<V> def) {
-        /*
-         * Suggestion: consider Optional.orElse
-         *
-         * Keep in mind that a map can be iterated through its forEach method
-         */
         final Map<K, V> mapToReturn = new HashMap<>();
         map.forEach((key, value) -> mapToReturn.put(key, value.orElseGet(def)));
         return mapToReturn;
