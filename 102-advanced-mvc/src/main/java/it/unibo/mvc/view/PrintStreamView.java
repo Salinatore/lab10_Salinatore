@@ -1,7 +1,10 @@
 /**
  * 
  */
-package it.unibo.mvc;
+package it.unibo.mvc.view;
+
+import it.unibo.mvc.controller.DrawNumberViewObserver;
+import it.unibo.mvc.model.DrawResult;
 
 import java.io.File;
 import java.io.FileNotFoundException;
