@@ -1,6 +1,6 @@
 # hidden files
 .idea
-.gradle/
+101-lambda-utilities-for-lists-and-maps/.gradle/
 .vscode/
 *.iml
 
