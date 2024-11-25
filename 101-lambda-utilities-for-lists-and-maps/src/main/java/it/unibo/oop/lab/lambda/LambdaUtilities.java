@@ -1,15 +1,7 @@
 package it.unibo.oop.lab.lambda;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
+import java.util.*;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -58,10 +50,11 @@ public final class LambdaUtilities {
      *         otherwise.
      */
     public static <T> List<Optional<T>> optFilter(final List<T> list, final Predicate<T> pre) {
-        /*
-         * Suggestion: consider Optional.filter
-         */
-        return null;
+        final List<Optional<T>> listToReturn = new ArrayList<>();
+        list.forEach(t -> {
+            listToReturn.add(Optional.of(t).filter(pre));
+        });
+        return listToReturn;
     }
 
     /**
@@ -80,7 +73,15 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Map.merge
          */
-        return null;
+        final Map<R, Set<T>> mapToReturn = new HashMap<>();
+        list.forEach(t -> {
+            mapToReturn.merge(op.apply(t) , Set.of(t) ,(oldSet, newSet) -> {
+                final Set<T> mergedSet = new HashSet<>(oldSet);
+                mergedSet.addAll(newSet);
+                return mergedSet;
+            });
+        });
+        return mapToReturn;
     }
 
     /**
@@ -92,7 +93,7 @@ public final class LambdaUtilities {
      *            element type
      * @param <K>
      *            key type
-     * @return a map whose non present values are filled with the value provided
+     * @return a map whose non-present values are filled with the value provided
      *         by the supplier
      */
     public static <K, V> Map<K, V> fill(final Map<K, Optional<V>> map, final Supplier<V> def) {
@@ -101,12 +102,13 @@ public final class LambdaUtilities {
          *
          * Keep in mind that a map can be iterated through its forEach method
          */
-        return null;
+        final Map<K, V> mapToReturn = new HashMap<>();
+        map.forEach((key, value) -> mapToReturn.put(key, value.orElseGet(def)));
+        return mapToReturn;
     }
 
     /**
-     * @param args
-     *            ignored
+     * @param arg ignored
      */
     @SuppressWarnings("PMD.SystemPrintln")
     public static void main(final String[] args) {
